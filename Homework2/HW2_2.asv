@@ -1,0 +1,68 @@
+clear;
+close all;
+
+figure(1);
+N=7;
+k=-N:1:N;
+
+PHI1=zeros(15,1);
+for i=-N:N
+    for n=0:N-1
+        PHI1(i+8,:)=PHI1(i+8,:)+S7(n)*S7(mod(n-i,N));
+    end
+    PHI1(i+8,:)=PHI1(i+8,:)/N;
+end
+
+subplot(3,1,1);
+title('N=7');
+stem(k,PHI1,'filled');
+axis([-10,10,-1,2]);
+axis normal;
+xlabel('k');
+ylabel('Auto-correlation');
+
+N=11;
+k=-N:1:N;
+
+PHI1=zeros(,1);
+for i=-N:N
+    for n=0:N-1
+        PHI1(i+8,:)=PHI1(i+8,:)+S7(n)*S7(mod(n-i,N));
+    end
+    PHI1(i+8,:)=PHI1(i+8,:)/N;
+end
+
+subplot(3,1,1);
+title('N=7');
+stem(k,PHI1,'filled');
+axis([-10,10,-1,2]);
+axis normal;
+xlabel('k');
+ylabel('Auto-correlation');
+
+sgtitle('2 Barker code');
+
+
+
+function s=S7(n)
+    switch n
+        case{0,1,2,5}
+            s=-1;
+        case{3,4,6}
+            s=1;
+    end
+end
+
+function s=S11(n)
+    switch n
+        case{0,1,2,6,9}
+            s=-1;
+        otherwise
+            s=1;
+    end
+end
+
+function s=S13(n)
+    N13=[-1,-1,-1,-1,-1,1,1,-1,-1,1,-1,1,-1];
+    s=N13(mod(n,13));
+end
